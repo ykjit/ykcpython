@@ -229,8 +229,19 @@ PyCode_NewWithPosOnlyArgs(int argcount, int posonlyargcount, int kwonlyargcount,
             cell2arg = NULL;
         }
     }
+    Py_ssize_t instrs_len = PyBytes_Size(code) / sizeof(_Py_CODEUNIT);
+    YkLocation *yklocations = (YkLocation *)PyMem_Calloc(instrs_len, sizeof(YkLocation));
+    if (yklocations == NULL) {
+        if (cell2arg)
+            PyMem_Free(cell2arg);
+        return NULL;
+    }
+    for (int i = 0; i < instrs_len; i ++) {
+        yklocations[i] = yk_location_new();
+    }
     co = PyObject_New(PyCodeObject, &PyCode_Type);
     if (co == NULL) {
+        PyMem_Free(yklocations);
         if (cell2arg)
             PyMem_Free(cell2arg);
         return NULL;
@@ -271,6 +282,8 @@ PyCode_NewWithPosOnlyArgs(int argcount, int posonlyargcount, int kwonlyargcount,
     co->co_opcache = NULL;
     co->co_opcache_flag = 0;
     co->co_opcache_size = 0;
+
+    co->co_yklocations = yklocations;
     return co;
 }
 
@@ -661,6 +674,12 @@ code_dealloc(PyCodeObject *co)
 
         PyMem_Free(co_extra);
     }
+
+    Py_ssize_t instrs_len = PyBytes_Size(co->co_code) / sizeof(_Py_CODEUNIT);
+    for (int i = 0; i < instrs_len; i++) {
+        yk_location_drop(co->co_yklocations[i]);
+    }
+    PyMem_Free(co->co_yklocations);
 
     Py_XDECREF(co->co_code);
     Py_XDECREF(co->co_consts);
