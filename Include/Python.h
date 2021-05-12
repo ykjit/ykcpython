@@ -8,6 +8,8 @@
 #include "pyconfig.h"
 #include "pymacconfig.h"
 
+#include "yk.h"
+
 #include <limits.h>
 
 #ifndef UCHAR_MAX
