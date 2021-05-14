@@ -9,6 +9,7 @@
 #include "pymacconfig.h"
 
 #include <limits.h>
+#include <yk.h>
 
 #ifndef UCHAR_MAX
 #error "Something's broken.  UCHAR_MAX should be defined in limits.h."

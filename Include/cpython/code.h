@@ -62,6 +62,8 @@ struct PyCodeObject {
     _PyOpcache *co_opcache;
     int co_opcache_flag;  // used to determine when create a cache.
     unsigned char co_opcache_size;  // length of co_opcache.
+
+    YkLocation *co_yklocations;
 };
 
 /* Masks for co_flags above */
