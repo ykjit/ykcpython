@@ -5933,6 +5933,10 @@ else
 fi
 AC_SUBST(TEST_MODULES)
 
+# yk integration
+AC_CHECK_HEADER([yk.h], [], [AC_MSG_ERROR([yk installation not found])])
+AC_CHECK_LIB([ykcapi], [yk_mt], [], [AC_MSG_ERROR([yk installation not found])])
+LINKFORSHARED="-lykcapi $LINKFORSHARED"
 
 # generate output files
 AC_CONFIG_FILES(Makefile.pre Misc/python.pc Misc/python-embed.pc Misc/python-config.sh)
