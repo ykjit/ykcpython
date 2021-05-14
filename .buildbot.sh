@@ -35,15 +35,12 @@ cd ..
 
 # The CFLAGS are those suggest for clang in
 # https://devguide.python.org/setup/#clang.
-#
-# We add --enable-shared to stop a test that removes LD_LIBRARY_PATH from its
-# env before trying to run the just-built python executable.
-LDFLAGS=-L$YK_INST_DIR CC=clang \
+LDFLAGS="-L$YK_INST_DIR -Wl,-rpath=$YK_INST_DIR" CC=clang \
   CPPFLAGS=-I`pwd`/yk/ykcapi \
   CFLAGS="-Wno-unused-value -Wno-empty-body -Qunused-arguments" \
-  ./configure --enable-shared
+  ./configure
 
-LDFLAGS=-L$YK_INST_DIR \
+LDFLAGS="-L$YK_INST_DIR -Wl,-rpath=$YK_INST_DIR" \
   CC=clang \
   CPPFLAGS=-I`pwd`/yk/ykcapi \
   CFLAGS="-Wno-unused-value -Wno-empty-body -Qunused-arguments" \
