@@ -14,8 +14,8 @@ sh rustup.sh --default-host x86_64-unknown-linux-gnu \
     -y
 export PATH=${CARGO_HOME}/bin/:$PATH
 
-git clone -b yk/12.0-2021-04-15 https://github.com/vext01/llvm-project
-cd llvm-project
+git clone https://github.com/ykjit/ykllvm
+cd ykllvm
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=`pwd`/../inst \
