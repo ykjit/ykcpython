@@ -1575,7 +1575,7 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, PyFrameObject *f, int throwflag)
     PyObject *consts;
     _PyOpcache *co_opcache;
 
-    MT *mt = yk_mt();
+    YkMT *mt = yk_mt();
 
 #ifdef LLTRACE
     _Py_IDENTIFIER(__ltrace__);
