@@ -160,6 +160,7 @@ typedef struct {
     void *co_extra;                                                            \
     _PyCode_DEF_THREAD_LOCAL_BYTECODE()                                        \
     char co_code_adaptive[(SIZE)];                                             \
+    YkLocation *co_yklocations;   /* yk locations for this codeobject */       \
 }
 
 /* Bytecode object */

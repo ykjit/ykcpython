@@ -26,6 +26,8 @@
 #  include <sys/types.h>          // ssize_t
 #endif
 
+#include <yk.h>
+
 // <errno.h>, <stdio.h>, <stdlib.h> and <string.h> headers are no longer used
 // by Python, but kept for the backward compatibility of existing third party C
 // extensions. They are not included by limited C API version 3.11 and newer.

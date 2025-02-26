@@ -942,6 +942,7 @@ _PyEval_EvalFrameDefault(PyThreadState *tstate, _PyInterpreterFrame *frame, int 
 #if Py_TAIL_CALL_INTERP
     return _TAIL_CALL_start_frame(frame, NULL, tstate, NULL, 0);
 #else
+    YkMT *mt = yk_mt_new(NULL);
     goto start_frame;
 #   include "generated_cases.c.h"
 #endif

@@ -541,6 +541,16 @@ init_code(PyCodeObject *co, struct _PyCodeConstructor *con)
         entry_point++;
     }
     co->_co_firsttraceable = entry_point;
+
+    // Add yk locations to this codeobject.
+    int len = Py_SIZE(co);
+    YkLocation *yk_locs = (YkLocation *)PyMem_Calloc(len, sizeof(YkLocation));
+    if (yk_locs == NULL) {
+        PyErr_NoMemory();
+        return 0;
+    }
+    co->co_yklocations = yk_locs;
+
 #ifdef Py_GIL_DISABLED
     _PyCode_Quicken(_PyCode_CODE(co), Py_SIZE(co), interp->config.tlbc_enabled);
 #else
@@ -1901,6 +1911,12 @@ code_dealloc(PyObject *self)
         clear_executors(co);
     }
 #endif
+
+    int len = Py_SIZE(co);
+    for (int i = 0; i < len; i++) {
+        yk_location_drop(co->co_yklocations[i]);
+    }
+    PyMem_Free(co->co_yklocations);
 
     Py_XDECREF(co->co_consts);
     Py_XDECREF(co->co_names);

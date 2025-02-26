@@ -163,6 +163,11 @@ def generate_tier1(
 #if !Py_TAIL_CALL_INTERP
 #if !USE_COMPUTED_GOTOS
     dispatch_opcode:
+        ;
+        PyCodeObject *co = _PyFrame_GetCode(frame);
+        _Py_CODEUNIT *first = co->co_code_adaptive;
+        YkLocation *loc = &co->co_yklocations[next_instr - first];
+        yk_mt_control_point(mt, loc);
         switch (opcode)
 #endif
         {{
