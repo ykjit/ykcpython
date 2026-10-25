@@ -83,15 +83,13 @@ repos:
       - id: end-of-file-fixer
         types_or: [python, yaml]
         exclude: Lib/test/tokenizedata/coding20731.py
-      - id: end-of-file-fixer
-        files: '^\.github/CODEOWNERS$'
       - id: mixed-line-ending
         args: [--fix=auto]
         exclude: '^Lib/test/.*data/'
       - id: trailing-whitespace
         types_or: [c, inc, python, rst, yaml]
       - id: trailing-whitespace
-        files: '^\.github/CODEOWNERS|\.(gram)$'
+        files: '\.(gram)$'
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
     rev: 9f48a48aa91a6040d749ad68ec70907d907a5a7f  # frozen: 0.37.0
