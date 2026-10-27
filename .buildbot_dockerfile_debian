@@ -5,7 +5,10 @@ RUN --mount=target=/var/lib/apt/lists,type=cache,sharing=locked \
   rm -f /etc/apt/apt.conf.d/docker-clean && \
   apt-get update && \
   apt-get -y install clang-17 make curl procps file git cmake python3 \
-    libtinfo-dev libzip-dev mold ninja-build gdb pipx rsync && \
+    libtinfo-dev libzip-dev mold ninja-build gdb pipx rsync \
+    pkg-config zlib1g-dev libbz2-dev liblzma-dev libzstd-dev \
+    libssl-dev libffi-dev libsqlite3-dev libreadline-dev \
+    libncurses-dev libgdbm-dev libgdbm-compat-dev tk-dev uuid-dev && \
   update-alternatives --install /usr/bin/cc cc /usr/bin/clang-17 999 && \
   update-alternatives --set cc /usr/bin/clang-17 && \
   update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-17 999 && \
